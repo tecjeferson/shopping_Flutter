@@ -30,7 +30,7 @@ It's a Shopping demonstration App. You should follow the instructions in the [of
 ## What's included
 
 * Login page, Cart page and Product page
-* TabBarView, Search bar, to look for heroes
+* TabBarView, Search bar
 * Material based.
 
 
