@@ -27,7 +27,7 @@ samples, guidance on mobile development, and a full API reference.
   <p align="center">
     Its is a a project to practice layout on flutter
     <br>
-    Project made with dedication and hardwork. I lolve it :heart:
+    Project made with dedication and hardwork. I love it :heart:
     <br>
     <br>
   
