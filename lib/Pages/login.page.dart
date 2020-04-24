@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:shopping/Pages/singup.page.dart';
+import 'package:shopping/pages/signup.page.dart';
 
 class LoginPage extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
+  String _email;
+  String _password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          color: Color(0xFFF5F5F5),
           padding: EdgeInsets.only(
             top: 80,
             left: 20,
@@ -17,12 +20,12 @@ class LoginPage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Container(
-                height: 390,
+                height: 480,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).accentColor,
                   boxShadow: [
                     new BoxShadow(
-                      color: Colors.black26,
+                      color: Colors.black12,
                       offset: new Offset(1, 2.0),
                       blurRadius: 5,
                       spreadRadius: 1,
@@ -30,93 +33,156 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
                 child: Padding(
-                  padding: EdgeInsets.only(left: 15, right: 15, top: 50),
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Column(children: [
-                            Text(
-                              'Welcome',
+                  padding: EdgeInsets.only(
+                    left: 15,
+                    right: 15,
+                    top: 60,
+                  ),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                Text(
+                                  "Welcome",
+                                  style: Theme.of(context).textTheme.display2,
+                                ),
+                                Text(
+                                  "Sign in to continue",
+                                  style: Theme.of(context).textTheme.subhead,
+                                ),
+                              ],
+                            ),
+                            FlatButton(
+                              child: Text(
+                                "Sign Up",
+                                style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SignupPage(),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 60,
+                        ),
+                        TextFormField(
+                          // autofocus: true,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            labelText: "Email",
+                            labelStyle: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                            ),
+                          ),
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Invalid E-mail';
+                            }
+                            return null;
+                          },
+                          onSaved: (input) => _email = input,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          // autofocus: true,
+                          keyboardType: TextInputType.text,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            labelText: "Password",
+                            labelStyle: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                            ),
+                          ),
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Invalid Password';
+                            }
+                            return null;
+                          },
+                          onSaved: (input) => _password = input,
+                        ),
+                        Container(
+                          height: 40,
+                          alignment: Alignment.centerRight,
+                          child: FlatButton(
+                            child: Text(
+                              "Forgot your password?",
                               style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w500,
+                                color: Theme.of(context).primaryColor,
                               ),
                             ),
-                            Text('Sign in to continue'),
-                          ]),
-                          FlatButton(
-                            child: Text('Sign Up'),
                             onPressed: () {},
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 50,
-                      ),
-                      TextFormField(
-                        autofocus: true,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          labelText: "Email",
-                          labelStyle: TextStyle(
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
                             color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                          ),
+                          child: FlatButton(
+                            child: Text(
+                              "Sign In",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            onPressed: () {
+                              if (_formKey.currentState.validate()) {
+                                _formKey.currentState.save();
+                                print(_email);
+                                print(_password);
+
+                                Scaffold.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Welcome, $_email'),
+                                  ),
+                                );
+                              }
+                            },
                           ),
                         ),
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      ),
-                      TextFormField(
-                        keyboardType: TextInputType.text,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          labelStyle: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 40,
-                        alignment: Alignment.centerRight,
-                        child: FlatButton(
-                          child: Text('Forgot your password?'),
-                          onPressed: () {},
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(5),
-                          ),
-                        ),
-                        child: FlatButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Sign in',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(top: 15, bottom: 10),
+                padding: EdgeInsets.only(top: 15, bottom: 15),
                 child: Text(
-                  '- OR -',
+                  "- OR -",
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w300,
@@ -125,18 +191,17 @@ class LoginPage extends StatelessWidget {
               ),
               Container(
                 width: double.infinity,
-                height: 50,
+                height: 60,
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 2.0,
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).primaryColor,
                   ),
                   borderRadius: BorderRadius.all(
                     Radius.circular(5),
                   ),
                 ),
                 child: FlatButton(
-                  onPressed: () {},
                   child: Row(
                     children: <Widget>[
                       Container(
@@ -146,9 +211,10 @@ class LoginPage extends StatelessWidget {
                           "assets/facebook.png",
                         ),
                       ),
-                      Text('Sign In with Facebook'),
+                      Text("Sign In with Facebook"),
                     ],
                   ),
+                  onPressed: () {},
                 ),
               ),
               SizedBox(
@@ -156,18 +222,17 @@ class LoginPage extends StatelessWidget {
               ),
               Container(
                 width: double.infinity,
-                height: 50,
+                height: 60,
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 2.0,
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).primaryColor,
                   ),
                   borderRadius: BorderRadius.all(
                     Radius.circular(5),
                   ),
                 ),
                 child: FlatButton(
-                  onPressed: () {},
                   child: Row(
                     children: <Widget>[
                       Container(
@@ -177,9 +242,10 @@ class LoginPage extends StatelessWidget {
                           "assets/google.png",
                         ),
                       ),
-                      Text('Sign In with Google'),
+                      Text("Sign In with Google"),
                     ],
                   ),
+                  onPressed: () {},
                 ),
               )
             ],

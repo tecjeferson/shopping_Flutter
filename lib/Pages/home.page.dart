@@ -4,16 +4,12 @@ import 'package:shopping/widgets/products/product-list.widget.dart';
 import 'package:shopping/widgets/search-box.widget.dart';
 
 class HomePage extends StatelessWidget {
-  
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(15),
         width: double.infinity,
-        color: Color(0xFFF5F5F5),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -25,10 +21,7 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              Text('Categories',
-                  style: TextStyle(
-                    fontSize: 30,
-                  )),
+              Text('Categories', style: Theme.of(context).textTheme.headline),
               SizedBox(
                 height: 5,
               ),
@@ -39,9 +32,7 @@ class HomePage extends StatelessWidget {
               SizedBox(height: 5),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 Text('Best Selling',
-                    style: TextStyle(
-                      fontSize: 30,
-                    )),
+                    style: Theme.of(context).textTheme.headline),
                 FlatButton(
                   child: Text('See All'),
                   onPressed: () {},
